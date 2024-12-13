@@ -1,0 +1,13 @@
+[Unit]
+Description=Executes an webhook call on shutdown command
+Requires=network-online.target
+After=network-online.target
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStop=/usr/bin/curl -X POST http://[INTERNAL_IP]:8123/api/webhook/[WEBHOOK_SECRET]
+
+[Install]
+WantedBy=multi-user.target
